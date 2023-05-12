@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pixel Art Dönüştürücü</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var preview = document.getElementById('preview');
+                preview.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+    
+</head>
+<body>
+    <h1>Pixel Art Dönüştürücü</h1>
+    
+    <div class="donustur">
+        <div class="sol">
+            <form action="/convert" method="post" enctype="multipart/form-data">
+                <input type="file" name="image" accept="image/*" onchange="previewImage(event)" required>
+                <br/>
+                
+                <div class="boyut">
+                    <label for="secim" >BOYUT SEÇİN</label>
+                    <select class="secim" name="output_size">
+                        <option value="16">16x16</option>
+                        <option value="32">32x32</option>
+                        <option value="48">48x48</option>
+                        <option value="64">64x64</option>
+                        <option value="128">128x128</option>
+                        <option value="256">256x256</option>
+                        <option value="512">512x512</option>
+                    </select>
+                </div>
+
+                <div class="boyut">
+                    <label for="secim" >PALET GENİŞLİĞİ SEÇİN</label>
+                    <select class="secim" name="palet">
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                        <option value="6">6</option>
+                        <option value="8">8</option>
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+                        <option value="14">14</option>
+                        <option value="16">16</option>
+                        <option value="18">18</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                
+                <div class="isimlendirme">
+                    <label class="isim" for="image_name">KAYIT ADI</label>
+                    <input type="text" name="image_name" id="name" required>
+                </div>
+        
+                <input type="submit" value="Resmi Dönüştür">
+            </form>
+        </div>
+        
+        <div class="sag">
+            <h2>Seçilen Resim Önizlemesi:</h2>
+            <img id="preview" src="#" alt="Seçilen Resim">
+        </div>
+    </div>
+</body>
+</html>
